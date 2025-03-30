@@ -1,20 +1,20 @@
-"use client"
+'use client'
 
-import { useRouter } from "next/navigation"
+import { useRouter } from 'next/navigation'
 
 export default function LoginPage() {
   const route = useRouter()
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
     const formData = new FormData(event.currentTarget)
-    const email = formData.get("email")
-    const password = formData.get("current-password")
+    const email = formData.get('email')
+    const password = formData.get('current-password')
     if (!email || !password) return
 
-    const res = await fetch("/api/v1/auth/login", {
-      method: "POST",
+    const res = await fetch('/api/v1/auth/login', {
+      method: 'POST',
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
       },
       body: JSON.stringify({
         email,
@@ -22,7 +22,7 @@ export default function LoginPage() {
       }),
     })
     if (res.ok) {
-      route.push("/dashboard")
+      route.push('/dashboard')
     }
   }
   return (

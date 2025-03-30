@@ -1,13 +1,13 @@
-"use client"
+'use client'
 
 export default function DashboardPage() {
   const handleProfile = async () => {
-    const res = await fetch("/api/v1/profile", {
-      method: "GET",
+    const res = await fetch('/api/v1/profile', {
+      method: 'GET',
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
       },
-      credentials: "include",
+      credentials: 'include',
     })
     if (res.ok) {
       const data = await res.json()
@@ -15,20 +15,20 @@ export default function DashboardPage() {
     }
   }
   const handleLogout = () => {
-    fetch("/api/v1/auth/logout", {
-      method: "POST",
+    fetch('/api/v1/auth/logout', {
+      method: 'POST',
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
       },
-      credentials: "include",
+      credentials: 'include',
     })
       .then(res => {
         if (res.ok) {
-          window.location.href = "/auth/login"
+          window.location.href = '/auth/login'
         }
       })
       .catch(error => {
-        console.error("Error logging out:", error)
+        console.error('Error logging out:', error)
       })
   }
 
