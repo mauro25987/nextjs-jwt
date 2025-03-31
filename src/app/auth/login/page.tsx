@@ -8,7 +8,7 @@ export default function LoginPage() {
     event.preventDefault()
     const formData = new FormData(event.currentTarget)
     const email = formData.get('email')
-    const password = formData.get('current-password')
+    const password = formData.get('password')
     if (!email || !password) return
 
     const res = await fetch('/api/v1/auth/login', {
@@ -29,9 +29,15 @@ export default function LoginPage() {
     <div>
       <form onSubmit={handleSubmit}>
         <label htmlFor="email">Email</label>
-        <input type="email" id="email" name="email" required />
+        <input type="email" id="email" name="email" autoComplete="email" required />
         <label htmlFor="password">Password</label>
-        <input type="password" id="password" name="current-password" required />
+        <input
+          type="password"
+          id="password"
+          name="password"
+          autoComplete="current-password"
+          required
+        />
         <button>Enviar</button>
       </form>
     </div>

@@ -1,17 +1,19 @@
 import { jwtVerify } from 'jose'
-import { NextRequest, NextResponse } from 'next/server'
+import { cookies } from 'next/headers'
+import { NextResponse } from 'next/server'
 
-export async function GET(req: NextRequest) {
-  const cookieStore = req.cookies.get('mytoken')?.value
+export async function GET() {
+  const cookieStore = await cookies()
+  const token = cookieStore.get('mytoken')?.value
 
-  if (!cookieStore) {
+  if (!token) {
     return NextResponse.json({ message: 'Unauthorized' }, { status: 401 })
   }
 
   try {
-    const token = await jwtVerify(cookieStore, new TextEncoder().encode('secret'))
-    return NextResponse.json({ message: 'Profile', email: token.payload.email }, { status: 200 })
+    const { payload } = await jwtVerify(token, new TextEncoder().encode('secret'))
+    return NextResponse.json({ message: 'Profile', email: payload.email }, { status: 200 })
   } catch (error) {
-    return NextResponse.json({ message: 'Token Invalid' }, { status: 401 })
+    return NextResponse.json({ message: 'Token verification failed' }, { status: 401 })
   }
 }

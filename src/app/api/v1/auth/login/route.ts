@@ -10,7 +10,7 @@ export async function POST(req: NextRequest) {
 
     const token = await new SignJWT({ email })
       .setProtectedHeader({ alg })
-      .setExpirationTime('30 min')
+      .setExpirationTime('1h')
       .setIssuedAt()
       .sign(secretKey)
 
@@ -18,7 +18,7 @@ export async function POST(req: NextRequest) {
 
     cookieStore.set('mytoken', token, {
       httpOnly: true,
-      maxAge: 300 * 60,
+      maxAge: 60 * 60,
       secure: process.env.NODE_ENV === 'production',
       sameSite: 'strict',
       path: '/',
